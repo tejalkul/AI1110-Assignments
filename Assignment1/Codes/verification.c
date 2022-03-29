@@ -42,6 +42,7 @@ void Verification(int marked_price,int sales_tax,int disc_shopkeeper,int disc_cu
 
     Amount_customer = selling_price_customer + tax_customer;
     printf("Amount paid by customer inclusive of tax = Rs.%d\n",Amount_customer);    //output
+    return;
 
 }
 
@@ -54,4 +55,5 @@ int main()
       int disc_customer = 5;  
 
       Verification(marked_price,sales_tax,disc_shopkeeper,disc_customer);
+      return 0;
 }

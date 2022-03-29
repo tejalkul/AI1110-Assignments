@@ -9,7 +9,7 @@ given marked price,discount for shopkeeper,discount for customer and sales tax
 
 #include<stdio.h>
 
-//Finds the result when we find percent of a number
+//Finds the result to find percent of a number given percentage
 int Percentage(int number,int percent)
 {
     int result;

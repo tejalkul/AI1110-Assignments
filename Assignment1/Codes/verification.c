@@ -20,7 +20,7 @@ int Percentage(int number,int percent)
 //Verification to get VAT paid by shopkeeper to government and amount paid by customer(including tax)
 void Verification(int marked_price,int sales_tax,int disc_shopkeeper,int disc_customer)
 {
-    int selling_prince_shopkeeper;
+    int selling_price_shopkeeper;
     int selling_price_customer;
     int discamount_shopkeeper;
     int discamount_customer;
@@ -30,8 +30,8 @@ void Verification(int marked_price,int sales_tax,int disc_shopkeeper,int disc_cu
     int Amount_customer;
 
     discamount_shopkeeper = Percentage(marked_price,disc_shopkeeper);
-    selling_prince_shopkeeper = marked_price - discamount_shopkeeper;
-    tax_shopkeeper = Percentage(selling_prince_shopkeeper,sales_tax);
+    selling_price_shopkeeper = marked_price - discamount_shopkeeper;
+    tax_shopkeeper = Percentage(selling_price_shopkeeper,sales_tax);
 
     discamount_customer = Percentage(marked_price,disc_customer);
     selling_price_customer = marked_price - discamount_customer;

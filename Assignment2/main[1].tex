@@ -1,0 +1,59 @@
+\documentclass[journal,12pt,two column]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage[cmex10]{amsmath}
+\usepackage{amsthm}
+\usepackage[export]{adjustbox}
+\usepackage{bm}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{color}                                            %%
+\usepackage{array}                                            %%
+
+\title{A1110 Assignment 2 }
+\author{Tejal Kulkarni \\ CS21BTECH11058 \\\vspace*{20pt} April 2022 \\ ICSE 12th 2018 }
+
+
+\begin{document}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\newcommand{\solution}{\noindent \textbf{Solution: }}
+\maketitle
+
+\textbf{ Q21(b):} A manufacturer's marginal cost function is $\dfrac{500}{\sqrt{2x+25}}$. Find the cost involved to increase production from 100 units to 300 units.\\
+\solution
+\begin{table}[ht!] 
+\caption{\textbf{Table with input and output variables, their symbols, their formulae and values:}}
+\label{table:1}
+\input{table}
+\end{table}
+
+From the table we have cost involved to increase production from a units to b units
+\begin{equation}
+\text{C} = \int_{a}^{b} F(x) \,dx    
+\end{equation}
+where F(x)dx is the cost involved in changing production by dx units. Hence for a to b we integrate F(x) from a to b units
+\begin{align}
+\implies \text{C} &= \int_{a}^{b} \frac{500}{\sqrt{2x+25}} \,dx \\
+                   &= 500 \int_{a}^{b} \frac{1}{\sqrt{2x+25}} \,dx  
+\end{align}
+Let $2\text{x} + 25 = \text{t}$, $2\text{dx} = \text{dt}$ \\
+\begin{align}
+\implies \text{C} &= 500 \int_{2a+25}^{2b+25} \frac{1}{\sqrt{\text{t}}} \,\frac{\text dt}{2} \\
+&= \frac{500}{2} \int_{2a+25}^{2b+25} \frac{1}{\sqrt{\text{t}}} \,\text{dt} \\
+&= \frac{500}{2} \sbrak{2\sqrt{\text{t}}}_{2a+25}^{2b+25} \\
+&= 500 \sbrak{\sqrt{\text{t}}}_{2a+25}^{2b+25} \\
+&= 500(\sqrt{2b + 25} - \sqrt{2a + 25})
+\end{align}
+Now a = 100 units and b = 300 units
+\begin{align}
+\implies \text{C} &= 500(\sqrt{2\times 300+25}-\sqrt{2\times 100+25})\\
+                  &= 500\times(\sqrt{625} - \sqrt{225})\\
+                  &= 500\times(25 - 15) = 5000 \\
+\implies \text{C} &= \text{Rs.}5000
+\end{align}
+Hence cost involved to increase production from 100 units to 300 units is \fbox{Rs.5000}.
+
+\end{document}

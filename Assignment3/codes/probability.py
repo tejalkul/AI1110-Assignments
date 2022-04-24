@@ -1,6 +1,6 @@
 #Name : Tejal Kulkarni
 #Roll Number:CS21BTECH11058
-#Date: 10/04/2022
+#Date: 24/04/2022
 
 #Python Code to find probability of getting 2 heads in a 3 coin tossing experiment
 
@@ -36,6 +36,6 @@ pr_1 = 1.0*ctr_1/N
 pr_0 = 1.0*ctr_0/N
 
 #Display probability
-print("Probability of getting 2 Heads(Theorotical): ",Pr_two_heads)
+print("Probability of getting 2 Heads(Theoretical): ",Pr_two_heads)
 print("Probability of getting 2 Heads(Practical): ", pr_2)
 

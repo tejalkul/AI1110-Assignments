@@ -1,8 +1,8 @@
 #Name : Tejal Kulkarni
 #Roll Number:CS21BTECH11058
-#Date: 03/05/2022
+#Date: 08/05/2022
 
-#Python Code to find number of P(A U B).
+#Python Code to find value of P(A U B).
 
 
 
@@ -11,7 +11,7 @@
 #Given
 prb = 5/13    #Probability of B
 pra = prb/2   #Probability of A
-prab = 2/5    #Probability A
+prab = 2/5    #Probability A given B
 
 #Calculations
 pra_intersection_b = prab*prb      #Probability A intersection B

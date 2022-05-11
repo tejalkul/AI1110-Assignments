@@ -1,0 +1,103 @@
+\documentclass[journal,12pt,two column]{IEEEtran}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage[cmex10]{amsmath}
+\usepackage{amsthm}
+\usepackage[export]{adjustbox}
+\usepackage{bm}
+\def\inputGnumericTable{} 
+
+\usepackage[latin1]{inputenc}                                 
+\usepackage{color}                                            
+\usepackage{array}   
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}  
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{color}                                            %%
+\usepackage{array}                                            %%
+\usepackage{caption} 
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\captionsetup[table]{skip=3pt} 
+
+\title{A1110 Assignment 7 }
+\author{Tejal Kulkarni \\ CS21BTECH11058 \\\vspace*{20pt} May 2022 \\ CBSE Probability Grade 12 }
+
+\begin{document}
+\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\newcommand*{\permcomb}[4][0mu]{{{}^{#3}\mkern#1#2_{#4}}}
+\newcommand*{\perm}[1][-3mu]{\permcomb[#1]{P}}
+\newcommand*{\comb}[1][-1mu]{\permcomb[#1]{C}}
+\renewcommand{\thetable}{\arabic{table}} 
+
+\maketitle
+
+\textbf{Exercise 13.2 Q14:}Probability of solving specific problem independently by A and B are $\dfrac{1}{2}$ and $\dfrac{1}{3}$ respectively. If both try to solve the problem independently, find the probability that 
+\begin{enumerate}[label = (\roman*)]
+    \item the problem is solved
+    \item exactly one of them solves the problem
+\end{enumerate}
+\solution Let  E and F be two events such that:
+\begin{table}[ht!]
+    \centering
+    \input{table4}
+    \caption{}
+    \label{Table 1}
+\end{table}
+
+E and F are independent events
+\begin{align}
+    \therefore \pr{EF} &= \pr{E}\pr{F} \\
+               \pr{EF'} &= \pr{E}\pr{F'} \\
+               \pr{E'F} &= \pr{E'}\pr{F} 
+\end{align}
+Also, for any event X we can write,
+\begin{equation}
+    \pr{X'} = 1 - \pr{X} \label{4}
+\end{equation}
+Now,
+\begin{enumerate}[label = (\roman*)]
+       \item Probability that problem is solved = 
+        \begin{align}
+         \pr{E + F} &= \pr{E} + \pr{F} - \pr{EF}\\
+         \pr{E + F} &= \pr{E} + \pr{F} - \pr{E}\pr{F} \\
+                    &= \frac{1}{2} + \frac{1}{3} - \frac{1}{2}\times\frac{1}{3}\\
+                    &= \frac{4}{6} \\
+                    &= \boxed{\frac{2}{3}}
+    \end{align}
+    \item Probability that exactly one of them solves the problem =
+    $\pr{EF'} + \pr{E'F} $
+    \begin{equation}
+        = \pr{E}\pr{F'} + \pr{E'}\pr{F}
+    \end{equation}
+    By \eqref{4},
+    \begin{align}
+        &= \pr{E}\brak{1-\pr{F}} + \brak{1-\pr{E}}\pr{F} \\
+        &= \frac{1}{2}\times\brak{1-\frac{1}{3}} +\brak{1-\frac{1}{2}}\times \frac{1}{3} \\
+        &= \frac{1}{2}\times\frac{2}{3} + \frac{1}{2}\times\frac{1}{3} \\
+        &= \frac{1}{3} + \frac{1}{6} \\
+        &= \frac{3}{6}\\
+        &= \boxed{\frac{1}{2}}
+    \end{align}
+    
+\end{enumerate}
+
+\end{document}

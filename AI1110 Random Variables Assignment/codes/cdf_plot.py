@@ -20,9 +20,9 @@ simlen = int(1e6) #number of samples
 err = [] #declaring probability list
 h = 2*maxlim/(maxrange-1)
 #randvar = np.random.normal(0,1,simlen)
-randvar = np.loadtxt('uni.dat',dtype='double')
+#randvar = np.loadtxt('uni.dat',dtype='double')
 #randvar = np.loadtxt('gau.dat',dtype='double')
-#randvar = np.loadtxt('log_V.dat',dtype='double')
+randvar = np.loadtxt('log_V.dat',dtype='double')
 #randvar = np.loadtxt('tria.dat',dtype='double')
 for i in range(0,50):
 	err_ind = np.nonzero(randvar < x[i]) #checking probability condition
@@ -53,8 +53,8 @@ vec_log_cdf = scipy.vectorize(log_cdf)
 #plotting the CDF
 plt.plot(x[0:(maxrange)].T,err,'o')
 #plt.plot(x.T,err)
-plt.plot(x,vec_uni_cdf(x))  #plotting the CDF
-#plt.plot(x,vec_log_cdf(x))
+#plt.plot(x,vec_uni_cdf(x))  #plotting the CDF
+plt.plot(x,vec_log_cdf(x))
 #plt.plot(x,c)
 plt.grid() #creating the grid
 plt.xlabel('$x$')

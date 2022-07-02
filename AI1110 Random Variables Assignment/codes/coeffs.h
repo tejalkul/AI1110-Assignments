@@ -255,3 +255,60 @@ fclose(fp);
 
 }
 //End function for generating Gaussian random numbers
+
+
+void random_V(char *str,int len) {
+    int i;
+FILE *fp;
+
+fp = fopen(str,"w");
+//Generate numbers
+for (i = 0; i < len; i++)
+{
+    fprintf(fp,"%lf\n",((-2)*log(1 - (double)rand()/RAND_MAX)));
+}
+fclose(fp);
+ 
+}
+
+//Defining the function for finding E(U^2)
+double mean_U2(char *str) {
+    int i=0,c;
+FILE *fp;
+double x, temp=0.0;
+
+fp = fopen(str,"r");
+//get numbers from file
+while(fscanf(fp,"%lf",&x)!=EOF)
+{
+//Count numbers in file
+i=i+1;
+//Add all numbers in file
+temp = temp+x*x;
+}
+fclose(fp);
+temp = temp/(i-1);
+return temp; 
+}
+
+//Defining the function for finding variance 
+double variance(char *str) {
+    double var = mean_U2(str) - mean(str)*mean(str);
+    return var;
+}
+
+//Defining function to generate triangular random numbers
+void triangular(char *str,int len) {
+  int i;
+FILE *fp;
+
+fp = fopen(str,"w");
+//Generate numbers
+for (i = 0; i < len; i++)
+{
+fprintf(fp,"%lf\n",(double)rand()/RAND_MAX + (double)rand()/RAND_MAX);
+}
+fclose(fp);
+
+
+}

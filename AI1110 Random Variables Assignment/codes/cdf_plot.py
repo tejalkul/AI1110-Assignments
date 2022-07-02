@@ -12,10 +12,10 @@ import shlex
 maxrange=50
 maxlim = 4
 x = np.linspace(-maxlim,maxlim,maxrange)#points on the x axis
-c1 = np.zeros(20)
-c2 = np.linspace(0,1,10)
-c3 = np.ones(20)
-c = np.concatenate([c1,c2,c3])
+#c1 = np.zeros(20)
+#c2 = np.linspace(0,1,10)
+#c3 = np.ones(20)
+#c = np.concatenate([c1,c2,c3])
 simlen = int(1e6) #number of samples
 err = [] #declaring probability list
 h = 2*maxlim/(maxrange-1)
@@ -54,6 +54,7 @@ vec_log_cdf = scipy.vectorize(log_cdf)
 plt.plot(x[0:(maxrange)].T,err,'o')
 #plt.plot(x.T,err)
 plt.plot(x,vec_uni_cdf(x))  #plotting the CDF
+#plt.plot(x,vec_log_cdf(x))
 #plt.plot(x,c)
 plt.grid() #creating the grid
 plt.xlabel('$x$')

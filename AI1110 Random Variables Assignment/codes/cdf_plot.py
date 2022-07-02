@@ -60,8 +60,9 @@ plt.grid() #creating the grid
 plt.xlabel('$x$')
 plt.ylabel('$F_X(x)$')
 plt.legend(["Numerical","Theory"])
-plt.savefig('../figs/U_CDF.png')
+#plt.savefig('../figs/U_CDF.png')
 #plt.savefig('../figs/X_CDF.png')
+plt.savefig('../figs/V_CDF.png')
 #plt.savefig('../figs/T_CDF.png')
 plt.show()
 

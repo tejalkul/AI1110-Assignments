@@ -20,7 +20,10 @@ h = 2*maxlim/(maxrange-1)
 #randvar = np.random.normal(0,1,simlen)
 #randvar = np.loadtxt('uni.dat',dtype='double')
 #randvar = np.loadtxt('gau.dat',dtype='double')
-randvar = np.loadtxt('tria.dat',dtype='double')
+#randvar = np.loadtxt('tria.dat',dtype='double')
+#randvar = np.loadtxt('chi.dat',dtype='double')
+randvar = np.loadtxt('root_V.dat',dtype='double')
+
 
 for i in range(0,maxrange):
 	err_ind = np.nonzero(randvar < x[i]) #checking probability condition
@@ -47,18 +50,36 @@ def tria_pdf(x):
 	else:
 		return 0.0
 	
+def chi_pdf(x):
+	if(x>=0):
+		return np.exp(-x/2.0)/2
+	else:
+		return 0.0
+
+def root_V(x):
+	if(x>=0):
+		return (np.exp(-x**2/2))*x
+	else:
+		return 0.0
+		
 vec_gauss_pdf = scipy.vectorize(gauss_pdf)
 vec_tria_pdf = scipy.vectorize(tria_pdf)
+vec_chi_pdf = scipy.vectorize(chi_pdf)
+vec_root_V = scipy.vectorize(root_V)
 
 plt.plot(x[0:(maxrange-1)].T,pdf,'o')
-plt.plot(x,vec_tria_pdf(x))
-#plt.plot(x,vec_gauss_pdf(x))#plotting the CDF
+#plt.plot(x,vec_chi_pdf(x))
+#plt.plot(x,vec_tria_pdf(x))
+plt.plot(x,vec_root_V(x))
 plt.grid() #creating the grid
 plt.xlabel('$x_i$')
 plt.ylabel('$p_X(x_i)$')
 plt.legend(["Numerical","Theory"])
 #plt.savefig('../figs/X_PDF.png')
-plt.savefig('../figs/T_PDF.png')
+#plt.savefig('../figs/T_PDF.png')
+#plt.savefig('../figs/V2_PDF.png')
+plt.savefig('../figs/A_PDF.png')
+
 
 #if using termux
 #plt.savefig('../figs/uni_pdf.pdf')

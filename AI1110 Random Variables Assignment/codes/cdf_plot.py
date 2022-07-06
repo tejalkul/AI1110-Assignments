@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import scipy 
 import mpmath as mp
 
+
 #if using termux
 import subprocess
 import shlex
@@ -23,8 +24,11 @@ h = 2*maxlim/(maxrange-1)
 #randvar = np.random.normal(0,1,simlen)
 #randvar = np.loadtxt('uni.dat',dtype='double')
 #randvar = np.loadtxt('gau.dat',dtype='double')
-#randvar = np.loadtxt('log_V.dat',dtype='double')
-randvar = np.loadtxt('tria.dat',dtype='double')
+randvar = np.loadtxt('log_V.dat',dtype='double')
+#randvar = np.loadtxt('tria.dat',dtype='double')
+#randvar = np.loadtxt('chi.dat',dtype='double')
+#randvar = np.loadtxt('root_V.dat',dtype='double')
+
 for i in range(0,maxrange):
 	err_ind = np.nonzero(randvar < x[i]) #checking probability condition
 	err_n = np.size(err_ind) #computing the probability
@@ -61,6 +65,20 @@ def tria_cdf(x):
 	else:
 		return 1.0
 
+def chi_cdf(x):
+	if(x>=0):
+		return 1 - np.exp(-x/2.0)
+	else:
+		return 0.0
+
+def root_V_cdf(x):
+	if(x>=0):
+		return 1 - np.exp(-x**2/2)
+	else:
+		return 0.0
+
+
+	
 
 #plt.plot(x.T,err)
 #vectorize
@@ -68,14 +86,18 @@ vec_uni_cdf = scipy.vectorize(uni_cdf)
 vec_gauss_cdf = scipy.vectorize(gauss_cdf)
 vec_log_cdf = scipy.vectorize(log_cdf)
 vec_tria_cdf = scipy.vectorize(tria_cdf)
+vec_chi_cdf = scipy.vectorize(chi_cdf)
+vec_root_V_cdf = scipy.vectorize(root_V_cdf)
 
 #plotting the CDF
 #plt.plot(x.T,err)
 plt.plot(x[0:(maxrange)].T,err,'o')
 #plt.plot(x,vec_uni_cdf(x))  #plotting the CDF
 #plt.plot(x,vec_gauss_cdf(x))
-#plt.plot(x,vec_log_cdf(x))  #plotting the CDF
-plt.plot(x,vec_tria_cdf(x))  #plotting the CDF
+plt.plot(x,vec_log_cdf(x))  #plotting the CDF
+#plt.plot(x,vec_tria_cdf(x))  #plotting the CDF
+#plt.plot(x,vec_chi_cdf(x))
+#plt.plot(x,vec_root_V_cdf(x))
 plt.grid() #creating the grid
 plt.xlabel('$x$')
 plt.ylabel('$F_X(x)$')
@@ -85,9 +107,16 @@ plt.legend(["Numerical","Theory"])
 
 #plt.savefig('../figs/X_CDF.png')
 
-#plt.savefig('../figs/V_CDF.png')
+plt.savefig('../figs/V_CDF.png')
 
-plt.savefig('../figs/T_CDF.png')
+#plt.savefig('../figs/T_CDF.png')
+
+#plt.savefig('../figs/V2_CDF.png')
+
+#plt.savefig('../figs/A_CDF.png')
+
+
+
 plt.show()
 
 #if using termux

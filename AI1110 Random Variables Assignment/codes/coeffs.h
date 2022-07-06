@@ -1,4 +1,4 @@
-
+#include <math.h>
 
 
 //Function declaration
@@ -306,9 +306,191 @@ fp = fopen(str,"w");
 //Generate numbers
 for (i = 0; i < len; i++)
 {
-fprintf(fp,"%lf\n",(double)rand()/RAND_MAX + (double)rand()/RAND_MAX);
+  double temp = 0;
+  for(int j=0;j<2;j++) {
+    temp = temp + (double)rand()/RAND_MAX;
+  }
+fprintf(fp,"%lf\n",temp);
 }
 fclose(fp);
 
 
 }
+
+//Defining function to generate bernoulli random variables
+void bernoulli(char *str, int len) {
+  int temp,val;
+  FILE *fp;
+
+  fp = fopen(str,"w");
+  for(int i =0; i< len;i++) {
+    temp = rand()%2;
+    if(temp==0) {
+      val = -1;
+      fprintf(fp,"%d\n",val);
+    }
+    else {
+      val = 1;
+      fprintf(fp,"%d\n",val);
+    }
+
+  }
+
+}
+
+void Y_gen(char *str, int len,double a) {
+  int i;
+  FILE *fp;
+  FILE *fp1;
+  FILE *fp2;  
+  double y,x,n;
+  fp = fopen(str,"w");
+  fp1 = fopen("gau.dat","r");
+  fp2 = fopen("bernoulli.dat","r");
+
+  //Generate numbers
+  
+  for(i=0;i<len;i++) {
+      fscanf(fp1,"%lf",&x);
+      fscanf(fp2,"%lf",&n);
+      y = a*x + n;
+      fprintf(fp,"%lf\n",y);
+  }
+    
+  fclose(fp);
+  fclose(fp1);
+  fclose(fp2);
+
+}
+
+void X_cap_gen(char *str,int len) {
+  int i;
+  FILE *fp;
+  FILE *fp1;
+  FILE *fp2; 
+  fp = fopen(str,"w");
+  fp1 = fopen("Y_gen.dat","r");
+  int val;
+  double y;
+
+    for(i=0;i<len;i++) {
+    fscanf(fp1,"%lf",&y);
+
+    if(y < 0) {
+      val = -1;
+      fprintf(fp,"%d\n", val);
+    }
+    else {
+      val = 1;
+      fprintf(fp,"%d\n", val);
+    }
+  }
+
+  fclose(fp);
+  fclose(fp1);
+
+
+}
+
+void Err_gen(int len) {
+  int i;
+  int counter1 = 0,counter2 = 0,counter3 = 0,counter4 = 0;
+  double x,x_cap;
+  FILE *fp1;
+  FILE *fp2; 
+
+  fp1 = fopen("bernoulli.dat","r");
+  fp2 = fopen("X_cap_gen.dat","r");
+
+  for(i=0;i<len;i++) {
+    fscanf(fp1,"%lf",&x);
+    fscanf(fp1,"%lf",&x_cap);
+
+    if((x==1) && (x_cap==-1)) {
+       counter1++;
+       counter2++;
+    }
+    else if(x==1) {
+      counter1++;
+    }
+    else if((x==-1)&&(x_cap==1)) {
+       counter3++;
+       counter4++;
+    }
+    else if(x==-1) {
+      counter3++;
+    }
+
+  }
+
+  double prob_e_0 = counter2/counter1;
+  double prob_e_1 = counter4/counter3;
+
+  double ver = counter1 + counter3; 
+
+  printf("%lf\n",prob_e_0);
+  printf("%lf\n",prob_e_1);
+  //printf("%lf\n",ver);
+
+  fclose(fp1);
+  fclose(fp2);
+
+
+
+
+
+}
+
+//Defining function to generate sum of squares of gaussean random variables
+void chi(char *str,int len) {
+ int i,j;
+double temp1,temp2;
+FILE *fp;
+
+fp = fopen(str,"w");
+//Generate numbers
+for (i = 0; i < len; i++)
+{
+double temp1 = 0;
+double temp2 = 0;
+for (j = 0; j < 12; j++)
+{
+temp1 += (double)rand()/RAND_MAX;
+temp2 += (double)rand()/RAND_MAX;
+}
+temp1-=6;
+temp2-=6;
+fprintf(fp,"%lf\n",(temp1*temp1 + temp2*temp2));
+}
+fclose(fp);
+
+
+}
+
+//Defining function to generate square root of V
+void root_V(char *str,int len) {
+ int i,j;
+double temp1,temp2;
+FILE *fp;
+
+fp = fopen(str,"w");
+//Generate numbers
+for (i = 0; i < len; i++)
+{
+temp1 = 0;
+temp2 = 0;
+for (j = 0; j < 12; j++)
+{
+temp1 += (double)rand()/RAND_MAX;
+temp2 += (double)rand()/RAND_MAX;
+}
+temp1-=6;
+temp2-=6;
+fprintf(fp,"%lf\n",sqrt((temp1*temp1 + temp2*temp2)));
+}
+fclose(fp);
+
+
+}
+
+

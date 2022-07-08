@@ -37,6 +37,8 @@ X_cap_gen("X_cap_gen.dat",1000000);
 
 Err_gen(1000000);
 
+//Prob_err("prob_err.dat",10);
+
 //Mean of uniform
 //printf("%lf",mean("uni.dat"));
 return 0;

@@ -351,8 +351,8 @@ void Y_gen(char *str, int len,double a) {
   //Generate numbers
   
   for(i=0;i<len;i++) {
-      fscanf(fp1,"%lf",&x);
-      fscanf(fp2,"%lf",&n);
+      fscanf(fp1,"%lf",&n);
+      fscanf(fp2,"%lf",&x);
       y = a*x + n;
       fprintf(fp,"%lf\n",y);
   }
@@ -392,10 +392,10 @@ void X_cap_gen(char *str,int len) {
 
 }
 
-void Err_gen(int len) {
+double Err_gen(int len) {
   int i;
   int counter1 = 0,counter2 = 0,counter3 = 0,counter4 = 0;
-  double x,x_cap;
+  int x,x_cap;
   FILE *fp1;
   FILE *fp2; 
 
@@ -403,8 +403,8 @@ void Err_gen(int len) {
   fp2 = fopen("X_cap_gen.dat","r");
 
   for(i=0;i<len;i++) {
-    fscanf(fp1,"%lf",&x);
-    fscanf(fp1,"%lf",&x_cap);
+    fscanf(fp1,"%d",&x);
+    fscanf(fp2,"%d",&x_cap);
 
     if((x==1) && (x_cap==-1)) {
        counter1++;
@@ -423,21 +423,46 @@ void Err_gen(int len) {
 
   }
 
-  double prob_e_0 = counter2/counter1;
-  double prob_e_1 = counter4/counter3;
+  //printf("%d %d %d %d\n",counter1,counter2,counter3,counter4);
+
+  
+
+  double prob_e_0 = counter2/(double)counter1;
+  double prob_e_1 = counter4/(double)counter3;
 
   double ver = counter1 + counter3; 
 
+  double prob_e = (prob_e_0 + prob_e_1)/2;
+
   printf("%lf\n",prob_e_0);
   printf("%lf\n",prob_e_1);
+  //printf("%lf\n",prob_e);
   //printf("%lf\n",ver);
 
   fclose(fp1);
   fclose(fp2);
 
+  return prob_e;
 
+}
 
+void Prob_err(char *str,int len) {
+  FILE *fp;
+  fp = fopen(str,"w");
 
+  int i = 0;
+  double a = 0.1;
+
+  for(i=0;i<=len;i++) {
+    Y_gen("Y_gen.dat",1000000,a*i);
+
+    X_cap_gen("X_cap_gen.dat",1000000);
+
+    double err = Err_gen(1000000);
+
+    fprintf(fp,"%lf\n",err);
+
+  }
 
 }
 

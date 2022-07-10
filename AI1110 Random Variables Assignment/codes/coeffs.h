@@ -300,22 +300,23 @@ double variance(char *str) {
 //Defining function to generate triangular random numbers
 void triangular(char *str,int len) {
   int i;
+  double x;
 FILE *fp;
 
 fp = fopen(str,"w");
 //Generate numbers
 for (i = 0; i < len; i++)
 {
-  double temp = 0;
-  for(int j=0;j<2;j++) {
-    temp = temp + (double)rand()/RAND_MAX;
-  }
-fprintf(fp,"%lf\n",temp);
+   double u1 = (double)rand()/RAND_MAX;
+   double u2 = (double)rand()/RAND_MAX;
+  x = u1 + u2;
+   fprintf(fp,"%lf\n",x);
 }
+
 fclose(fp);
 
-
 }
+
 
 //Defining function to generate bernoulli random variables
 void bernoulli(char *str, int len) {
@@ -392,6 +393,144 @@ void X_cap_gen(char *str,int len) {
 
 }
 
+
+
+
+
+//Defining function to generate sum of squares of gaussean random variables
+void chi(char *str,int len) {
+ int i,j;
+double temp1,temp2;
+FILE *fp;
+
+fp = fopen(str,"w");
+//Generate numbers
+for (i = 0; i < len; i++)
+{
+double temp1 = 0;
+double temp2 = 0;
+for (j = 0; j < 12; j++)
+{
+temp1 += (double)rand()/RAND_MAX;
+temp2 += (double)rand()/RAND_MAX;
+}
+temp1-=6;
+temp2-=6;
+fprintf(fp,"%lf\n",(temp1*temp1 + temp2*temp2));
+}
+fclose(fp);
+
+
+}
+
+//Defining function to generate square root of V
+void root_V(char *str,int len) {
+ int i,j;
+double temp1,temp2;
+FILE *fp;
+
+fp = fopen(str,"w");
+//Generate numbers
+for (i = 0; i < len; i++)
+{
+temp1 = 0;
+temp2 = 0;
+for (j = 0; j < 12; j++)
+{
+temp1 += (double)rand()/RAND_MAX;
+temp2 += (double)rand()/RAND_MAX;
+}
+temp1-=6;
+temp2-=6;
+fprintf(fp,"%lf\n",sqrt((temp1*temp1 + temp2*temp2)));
+}
+fclose(fp);
+
+
+}
+
+/*void gaussian2(char *str, int len,double var) {
+  int i,j;
+double temp;
+FILE *fp;
+
+fp = fopen(str,"w");
+//Generate numbers
+for (i = 0; i < len; i++)
+{
+temp = 0;
+for (j = 0; j < 12; j++)
+{
+temp += (double)rand()/RAND_MAX;
+}
+temp-=6;
+temp = temp*sqrt(var);
+fprintf(fp,"%lf\n",temp);
+}
+fclose(fp);
+
+}*/
+
+void rayleigh(char *str,int len,double var) {
+  int i,j;
+  double temp1,temp2,temp;
+
+  FILE *fp;
+  //FILE *fp1;
+  //FILE *fp2;
+  fp = fopen(str,"w");
+  //Generate numbers
+  for (i = 0; i < len; i++)
+  {
+    temp1 = 0;
+    temp2 = 0;
+    for (j = 0; j < 12; j++)
+    {
+       temp1 += (double)rand()/RAND_MAX;
+       temp2 += (double)rand()/RAND_MAX;
+    }
+    temp1-=6;
+    temp2-=6;
+    temp1 = temp1*sqrt(var);
+    temp2 = temp2*sqrt(var);
+    temp = sqrt(temp1*temp1 + temp2*temp2);
+    fprintf(fp,"%lf\n",temp);
+
+  }
+  fclose(fp);
+
+}
+
+//Defining function to generate Y with  A being a rayleigh distribution
+void Y2_gen(char *str,int len) {
+  int i;
+  FILE *fp;
+  FILE *fp1;
+  FILE *fp2; 
+  FILE *fp3; 
+  double y,x,n,a;
+  fp = fopen(str,"w");
+  fp1 = fopen("gau.dat","r");
+  fp2 = fopen("bernoulli.dat","r");
+  fp3 = fopen("rayleigh.dat","r");
+
+  //Generate numbers
+  
+  for(i=0;i<len;i++) {
+      fscanf(fp1,"%lf",&n);
+      fscanf(fp2,"%lf",&x);
+      fscanf(fp3,"%lf",&a);
+      y = a*x + n;
+      fprintf(fp,"%lf\n",y);
+  }
+    
+  fclose(fp);
+  fclose(fp1);
+  fclose(fp2);
+  fclose(fp3);
+
+}
+
 double Err_gen(int len) {
   int i;
   int counter1 = 0,counter2 = 0,counter3 = 0,counter4 = 0;
@@ -446,6 +585,7 @@ double Err_gen(int len) {
 
 }
 
+
 void Prob_err(char *str,int len) {
   FILE *fp;
   fp = fopen(str,"w");
@@ -454,6 +594,7 @@ void Prob_err(char *str,int len) {
   double a = 0.1;
 
   for(i=0;i<=len;i++) {
+    //rayleigh("rayleigh.dat",1000000,a*i/2);
     Y_gen("Y_gen.dat",1000000,a*i);
 
     X_cap_gen("X_cap_gen.dat",1000000);
@@ -463,58 +604,6 @@ void Prob_err(char *str,int len) {
     fprintf(fp,"%lf\n",err);
 
   }
-
-}
-
-//Defining function to generate sum of squares of gaussean random variables
-void chi(char *str,int len) {
- int i,j;
-double temp1,temp2;
-FILE *fp;
-
-fp = fopen(str,"w");
-//Generate numbers
-for (i = 0; i < len; i++)
-{
-double temp1 = 0;
-double temp2 = 0;
-for (j = 0; j < 12; j++)
-{
-temp1 += (double)rand()/RAND_MAX;
-temp2 += (double)rand()/RAND_MAX;
-}
-temp1-=6;
-temp2-=6;
-fprintf(fp,"%lf\n",(temp1*temp1 + temp2*temp2));
-}
-fclose(fp);
-
-
-}
-
-//Defining function to generate square root of V
-void root_V(char *str,int len) {
- int i,j;
-double temp1,temp2;
-FILE *fp;
-
-fp = fopen(str,"w");
-//Generate numbers
-for (i = 0; i < len; i++)
-{
-temp1 = 0;
-temp2 = 0;
-for (j = 0; j < 12; j++)
-{
-temp1 += (double)rand()/RAND_MAX;
-temp2 += (double)rand()/RAND_MAX;
-}
-temp1-=6;
-temp2-=6;
-fprintf(fp,"%lf\n",sqrt((temp1*temp1 + temp2*temp2)));
-}
-fclose(fp);
-
 
 }
 

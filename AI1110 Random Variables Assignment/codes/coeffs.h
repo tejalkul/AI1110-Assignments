@@ -398,25 +398,30 @@ void X_cap_gen(char *str,int len) {
 
 
 //Defining function to generate sum of squares of gaussean random variables
-void chi(char *str,int len) {
- int i,j;
-double temp1,temp2;
+void chi(char *str,int len,int n) {
+ int i,j,k;
+double temp1,temp = 0;
 FILE *fp;
 
 fp = fopen(str,"w");
 //Generate numbers
+
 for (i = 0; i < len; i++)
 {
-double temp1 = 0;
-double temp2 = 0;
+  //double temp2 = 0;
+  temp = 0;
+for(k=0;k<n;k++) {
+  temp1 = 0;
 for (j = 0; j < 12; j++)
 {
 temp1 += (double)rand()/RAND_MAX;
-temp2 += (double)rand()/RAND_MAX;
+//temp2 += (double)rand()/RAND_MAX;
 }
 temp1-=6;
-temp2-=6;
-fprintf(fp,"%lf\n",(temp1*temp1 + temp2*temp2));
+temp = temp + temp1*temp1;
+//temp2-=6;
+}
+fprintf(fp,"%lf\n",temp);
 }
 fclose(fp);
 
@@ -471,7 +476,7 @@ fclose(fp);
 
 }*/
 
-void rayleigh(char *str,int len,double var) {
+void rayleigh(char *str,int len,double std_dev) {
   int i,j;
   double temp1,temp2,temp;
 
@@ -491,8 +496,8 @@ void rayleigh(char *str,int len,double var) {
     }
     temp1-=6;
     temp2-=6;
-    temp1 = temp1*sqrt(var);
-    temp2 = temp2*sqrt(var);
+    temp1 = temp1*(std_dev);
+    temp2 = temp2*(std_dev);
     temp = sqrt(temp1*temp1 + temp2*temp2);
     fprintf(fp,"%lf\n",temp);
 
@@ -581,7 +586,7 @@ double Err_gen(int len) {
   fclose(fp1);
   fclose(fp2);
 
-  return prob_e;
+  return prob_e_0;
 
 }
 
@@ -594,7 +599,7 @@ void Prob_err(char *str,int len) {
   double a = 0.1;
 
   for(i=0;i<=len;i++) {
-    //rayleigh("rayleigh.dat",1000000,a*i/2);
+    //rayleigh("rayleigh.dat",1000000,sqrt(a*i/2.0));
     Y_gen("Y_gen.dat",1000000,a*i);
 
     X_cap_gen("X_cap_gen.dat",1000000);
@@ -605,6 +610,62 @@ void Prob_err(char *str,int len) {
 
   }
 
+  void gaussian_2D(char *str, int len)
+{
+int i,j;
+double temp1,temp2;
+FILE *fp;
+
+fp = fopen(str,"w");
+//Generate numbers
+for (i = 0; i < len; i++)
+{
+temp1 = 0;
+temp2 = 0;
+for (j = 0; j < 12; j++)
+{
+temp1 += (double)rand()/RAND_MAX;
+temp2 += (double)rand()/RAND_MAX;
 }
+temp1-=6;
+temp2-=6;
+fprintf(fp,"(%lf,%lf)\n",temp1,temp2);
+}
+fclose(fp);
+
+}
+
+void bernoulli(char *str, int len) {
+  int temp1,val,temp2;
+  FILE *fp;
+
+  fp = fopen(str,"w");
+  for(int i =0; i< len;i++) {
+    temp1 = rand()%2;
+    temp2 = rand()%2;
+    if(temp1==0) {
+      val = 0;
+      fprintf(fp,"%d\n",val);
+    }
+    else {
+      val = 1;
+      fprintf(fp,"%d\n",val);
+    }
+
+  }
+
+}
+
+  
+
+}
+
+
+
+
+
+  
+
+
 
 
